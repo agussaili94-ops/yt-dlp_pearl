@@ -51,7 +51,6 @@
             android:textAlignment="center"
             android:textColor="@color/text_dark"
             android:textSize="18sp"
-            android:textStyle="bold"
             android:layout_marginBottom="24dp"/>
 
         <LinearLayout
@@ -132,7 +131,7 @@
             android:orientation="vertical"
             android:gravity="center">
             <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_nav_folder" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Unduhan" android:textSize="11sp" android:textColor="@color/accent_blue" android:textStyle="bold" android:layout_marginTop="4dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Unduhan" android:textSize="11sp" android:textColor="@color/accent_blue" android:layout_marginTop="4dp"/>
         </LinearLayout>
 
         <LinearLayout
