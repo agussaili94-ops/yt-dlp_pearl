@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_main">       
+    
+    <LinearLayout
+        android:id="@+id/loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <ProgressBar android:layout_width="wrap_content" android:layout_height="wrap_content" android:indeterminateTint="@color/accent_blue"/>
+        <TextView android:id="@+id/loading_status_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="Preparing FFmpeg..." android:textColor="@color/text_dark"/>
+    </LinearLayout>                            
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingTop="32dp"
+        android:paddingHorizontal="20dp">
+        
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_card_white"
+            android:padding="8dp"
+            android:elevation="2dp"
+            android:src="@drawable/logo_app" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Version : 2026:03:11"
+            android:textAlignment="center"
+            android:textColor="@color/text_light"
+            android:textSize="12sp" />
+            
+        <TextView
+            android:id="@+id/active_counter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0/1000"
+            android:textAlignment="center"
+            android:textColor="@color/text_dark"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_card_white"
+            android:elevation="4dp"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="8dp"
+            android:layout_marginBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_link"
+                    android:layout_marginEnd="12dp"/>
+
+                <EditText
+                    android:id="@+id/video_url_edit_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="Video / Stream URL"
+                    android:textColorHint="@color/text_light"
+                    android:textColor="@color/text_dark"
+                    android:textSize="16sp"
+                    android:inputType="textUri"
+                    android:maxLines="1"/>
+
+                <ImageButton
+                    android:id="@+id/download_button"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_search"
+                    android:padding="8dp"
+                    android:scaleType="fitCenter"/>
+            </LinearLayout>                    
+            
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/accent_blue"
+                android:layout_marginHorizontal="8dp"/>
+        </LinearLayout>
+        
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="24dp"
+            android:overScrollMode="never" />
+    </LinearLayout>                            
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:elevation="16dp"
+        android:orientation="horizontal"
+        android:paddingHorizontal="24dp">      
+        
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_nav_folder" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Unduhan" android:textSize="11sp" android:textColor="@color/accent_blue" android:textStyle="bold" android:layout_marginTop="4dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center|top"
+            android:paddingTop="6dp">
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_circle_blue"
+                android:src="@drawable/ic_arrow_down"
+                android:scaleType="centerInside"
+                android:padding="12dp" />
+        </LinearLayout>                        
+        
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_nav_settings" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Pengaturan" android:textSize="11sp" android:textColor="@color/text_light" android:layout_marginTop="4dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

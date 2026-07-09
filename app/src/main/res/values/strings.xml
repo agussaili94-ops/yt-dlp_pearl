@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pearl</string>
+
+    <string name="hint_url">Video / Stream URL</string>
+    
+    <string name="toast_empty_input">Please enter a URL!</string>
+    <string name="toast_extract_failed">Failed to extract link!</string>
+</resources>

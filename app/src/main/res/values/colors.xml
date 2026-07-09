@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#F4F7FC</color>
+    <color name="colorPrimaryDark">#E4E8F5</color>
+    <color name="colorAccent">#4169E1</color> 
+    <color name="background_dark">#F4F7FC</color>
+    <color name="card_background">#FFFFFF</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color> 
+
+    <color name="bg_main">#F4F7FC</color> 
+    <color name="accent_blue">#4169E1</color> 
+    <color name="accent_purple_light">#EEF0FF</color> 
+    <color name="red_stop">#FF4B4B</color>
+    
+    <color name="text_dark">#333333</color>
+    <color name="text_light">#9AA0B1</color>
+    
+    <color name="progress_bg">#E4E8F5</color>
+    <color name="transparent">#00000000</color>
+</resources>

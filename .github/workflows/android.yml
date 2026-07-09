@@ -1,0 +1,42 @@
+name: Android Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Grant execute permission
+        run: chmod +x gradlew
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug
+
+      - name: Upload Debug APK (Hanya arm64)
+        uses: actions/upload-artifact@v4
+        with:
+          name: m3u8dl-debug-arm64
+          # Mengambil khusus arm64 jika ada split ABI, jika tidak ada akan mengambil APK universal
+          path: |
+            app/build/outputs/apk/debug/*arm64-v8a*.apk
+            app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: warn
+          retention-days: 7
