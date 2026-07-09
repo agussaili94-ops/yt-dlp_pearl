@@ -12,6 +12,7 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton; // <-- Import ImageButton ditambahkan
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -55,7 +56,9 @@ public class MainActivity extends AppCompatActivity {
         loadingStatusText = findViewById(R.id.loading_status_text);
         videoUrlEditText = findViewById(R.id.video_url_edit_text);
         activeCounter = findViewById(R.id.active_counter);
-        Button downloadButton = findViewById(R.id.download_button);
+        
+        // 🔥 PERBAIKAN DI SINI: Mengubah Button menjadi ImageButton agar cocok dengan file desain XML
+        ImageButton downloadButton = findViewById(R.id.download_button);
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -134,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
         new Thread(() -> {
             try {
                 String lowerUrl = url.toLowerCase();
-                
+
                 // 1. Eksekusi Langsung: Jika input adalah link hasil sniffing
                 if (lowerUrl.contains(".m3u8") || lowerUrl.contains(".flv") || lowerUrl.contains(".rtmp") || lowerUrl.contains(".mpd")) {
                     String genTitle = "LiveStream_" + System.currentTimeMillis();
@@ -158,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                     String[] lines = out.trim().split("\n");
                     String title = "Extracted_Media";
                     String streamUrl = lines[0]; // fallback jika hanya 1 baris
-                    
+
                     if (lines.length >= 2) {
                         title = lines[0].replaceAll("[\\\\/:*?\"<>|]", "_");
                         streamUrl = lines[lines.length - 1];
@@ -177,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
                         downloadWithFFmpegKit(finalTitle, streamUrl, item);
                     } else {
                         // Fallback ke yt-dlp native murni HANYA jika berupa VOD biasa (bukan streaming)
-                        downloadWithYtDlp(url, item); 
+                        downloadWithYtDlp(url, item);
                     }
                 } else {
                     downloadWithYtDlp(url, item);
@@ -318,7 +321,6 @@ public class MainActivity extends AppCompatActivity {
         if (activeCounter != null) {
             activeCounter.setText(count + "/1000");
         }
-        // LiveMonitorService.updateNotification(this, count); // Uncomment jika ada
     }
 
     private void checkAllPermissions() {
