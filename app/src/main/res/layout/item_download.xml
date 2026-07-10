@@ -1,35 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/bg_card_white"
-    android:elevation="2dp"
-    android:padding="16dp"
-    android:layout_marginBottom="16dp"
-    android:orientation="horizontal">
+    android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/bg_card_soft_shadow" android:padding="16dp" android:layout_marginBottom="16dp" android:orientation="horizontal" android:gravity="center_vertical">
 
-    <!-- Ikon Play Ungu Tegas -->
-    <LinearLayout android:layout_width="56dp" android:layout_height="56dp" android:backgroundTint="@color/accent_purple" android:background="@drawable/bg_card_white" android:gravity="center" android:layout_marginEnd="16dp">
+    <LinearLayout android:layout_width="56dp" android:layout_height="56dp" android:background="@drawable/bg_icon_purple" android:gravity="center" android:layout_marginEnd="16dp">
         <ImageView android:layout_width="28dp" android:layout_height="28dp" android:src="@drawable/ic_play_solid"/>
     </LinearLayout>
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
 
         <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-            <!-- Judul Tanpa Bold -->
             <TextView android:id="@+id/item_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_toStartOf="@id/btn_stop" android:layout_centerVertical="true" android:layout_marginEnd="12dp" android:text="Judul Video..." android:textColor="@color/text_dark" android:textSize="14sp" android:maxLines="2" android:ellipsize="end"/>
-            <!-- Ikon Stop Merah Tegas -->
-            <ImageButton android:id="@+id/btn_stop" android:layout_width="26dp" android:layout_height="26dp" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:background="@drawable/bg_circle_red" android:src="@drawable/ic_minus_solid" android:scaleType="centerInside" android:padding="6dp"/>
+            
+            <!-- PADDING DIHAPUS (0dp) AGAR IKON PENUH! -->
+            <ImageButton android:id="@+id/btn_stop" android:layout_width="28dp" android:layout_height="28dp" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:background="@android:color/transparent" android:src="@drawable/ic_minus_solid" android:scaleType="fitCenter" android:padding="0dp" />
         </RelativeLayout>
 
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:layout_marginBottom="12dp" android:gravity="center_vertical" android:orientation="horizontal">
-            <!-- Progress Bar dengan custom drawable tebal -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:layout_marginBottom="10dp" android:gravity="center_vertical" android:orientation="horizontal">
             <ProgressBar android:id="@+id/item_progress" style="?android:attr/progressBarStyleHorizontal" android:layout_width="0dp" android:layout_height="6dp" android:layout_weight="1" android:progressDrawable="@drawable/custom_progressbar" android:layout_marginEnd="12dp" android:max="100"/>
             <TextView android:id="@+id/item_duration" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="00:00:25" android:textColor="@color/text_light" android:textSize="11sp"/>
         </LinearLayout>
 
         <LinearLayout android:id="@+id/info_layout" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
-            <!-- Ukuran -->
             <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
                 <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
                     <ImageView android:layout_width="12dp" android:layout_height="12dp" android:src="@drawable/ic_file_blue"/>
@@ -38,7 +29,6 @@
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="18dp" android:text="Ukuran" android:textColor="@color/text_light" android:textSize="9sp"/>
             </LinearLayout>
 
-            <!-- Kecepatan -->
             <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
                 <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
                     <ImageView android:layout_width="12dp" android:layout_height="12dp" android:src="@drawable/ic_speed_green"/>
@@ -47,7 +37,6 @@
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="18dp" android:text="Kecepatan" android:textColor="@color/text_light" android:textSize="9sp"/>
             </LinearLayout>
 
-            <!-- Waktu/Status -->
             <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
                 <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
                     <ImageView android:layout_width="12dp" android:layout_height="12dp" android:src="@drawable/ic_time_orange"/>
