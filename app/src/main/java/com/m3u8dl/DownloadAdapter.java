@@ -1,8 +1,11 @@
 package com.m3u8dl;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -20,6 +23,7 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
         downloadList.add(item);
         notifyItemInserted(downloadList.size() - 1);
     }                                          
+    
     public void removeDownload(DownloadItem item) {
         int index = downloadList.indexOf(item);
         if (index != -1) {                                 
@@ -27,6 +31,7 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
             notifyItemRemoved(index);                  
         }
     }                                          
+    
     public List<DownloadItem> getItems() { return downloadList; }
 
     @NonNull
@@ -61,7 +66,6 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
         holder.size.setText(item.sizeStr);
         holder.speed.setText(item.speedStr);   
         
-        // Memasukkan angka progress murni
         holder.progressBar.setIndeterminate(false); 
         holder.progressBar.setProgress(item.progress);
 
@@ -71,6 +75,8 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
             holder.btnStop.setVisibility(View.VISIBLE);
             holder.btnStop.setEnabled(true);
             holder.btnStop.setAlpha(1.0f);
+            // KUNCI PERBAIKAN: Memastikan ikon vektor yang benar dipanggil ke ImageButton
+            holder.btnStop.setImageResource(R.drawable.ic_minus_solid);
         }
     }
 
