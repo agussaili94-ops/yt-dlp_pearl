@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Template improved from user's original. Replace your existing item_download.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -44,21 +43,23 @@
                 android:ellipsize="end"
                 android:text="Filename"
                 android:textColor="@color/text_dark"
-                android:textStyle="bold"
                 android:textSize="15sp"/>
-
-            <Button
+                <Button
                 android:id="@+id/btn_stop"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_alignParentEnd="true"
-                android:background="@drawable/bg_circle_red"
-                android:text="➖"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
+                android:layout_centerVertical="true"
+                android:background="@android:color/transparent"
+                android:text="⛔"
+                android:textSize="16sp"
                 android:minWidth="0dp"
                 android:minHeight="0dp"
-                android:padding="0dp"/>
+                android:padding="0dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"/>
         </RelativeLayout>
 
         <LinearLayout
@@ -75,10 +76,8 @@
                 android:layout_height="8dp"
                 android:layout_weight="1"
                 android:layout_marginEnd="12dp"
-                android:indeterminate="false"
-                android:max="100"
-                android:progress="0"
-                android:progressDrawable="@drawable/custom_progressbar"/>
+                android:indeterminate="true"
+                android:indeterminateTint="@color/accent_blue"/>
 
             <TextView
                 android:id="@+id/item_duration"
@@ -106,7 +105,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="📄 0 MB"
-                    android:textStyle="bold"
                     android:textSize="13sp"
                     android:textColor="@color/text_dark"/>
 
@@ -130,7 +128,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="🚀 0 KB/s"
-                    android:textStyle="bold"
                     android:textSize="13sp"
                     android:textColor="@color/text_dark"/>
 
@@ -154,7 +151,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="⏱️ Active"
-                    android:textStyle="bold"
                     android:textSize="13sp"
                     android:textColor="@color/text_dark"/>
 
