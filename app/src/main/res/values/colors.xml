@@ -11,6 +11,8 @@
     <color name="bg_main">#F8F9FD</color> 
     <color name="accent_blue">#2B65EC</color> 
     <color name="accent_purple">#9B86FA</color> 
+    <!-- Ini warna yang terlewat dan memicu error -->
+    <color name="accent_purple_light">#EAE6FF</color> 
     <color name="red_stop">#FF4B4B</color>
     
     <color name="text_dark">#202124</color>
