@@ -1,10 +1,13 @@
 package com.m3u8dl;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton; // Ganti dari Button
-import android.widget.ProgressBar; // Tambahan progress bar
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +25,7 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
         downloadList.add(item);
         notifyItemInserted(downloadList.size() - 1);
     }                                          
+    
     public void removeDownload(DownloadItem item) {
         int index = downloadList.indexOf(item);
         if (index != -1) {                                 
@@ -29,6 +33,7 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
             notifyItemRemoved(index);                  
         }
     }                                          
+    
     public List<DownloadItem> getItems() {
         return downloadList;                       
     }
@@ -71,22 +76,35 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
         holder.size.setText(item.sizeStr);
         holder.speed.setText(item.speedStr);   
         
-        // Atur Animasi Progress Bar
+        // 🔥 SOLUSI ANIMASI PROGRESS BAR PADAT (Tidak Putus-Putus)
+        holder.progressBar.setIndeterminate(false); // Kita matikan putus-putus bawaan Android
+        
         if (item.isIndeterminate) {
-            holder.progressBar.setIndeterminate(true);
+            // Kita buat animasi balok padat berjalan dari kiri ke kanan berulang-ulang
+            if (holder.progressBar.getTag() == null) {
+                ObjectAnimator anim = ObjectAnimator.ofInt(holder.progressBar, "progress", 0, 100);
+                anim.setDuration(1200); // Kecepatan meluncur
+                anim.setInterpolator(new LinearInterpolator());
+                anim.setRepeatCount(ValueAnimator.INFINITE);
+                anim.start();
+                holder.progressBar.setTag(anim); // Simpan animasi agar tidak tumpang tindih
+            }
         } else {
-            holder.progressBar.setIndeterminate(false);
+            // Jika ada nilai persentase nyata (Video VOD)
+            if (holder.progressBar.getTag() != null) {
+                ((ObjectAnimator) holder.progressBar.getTag()).cancel();
+                holder.progressBar.setTag(null);
+            }
             holder.progressBar.setProgress(item.progress);
         }
 
-        // Atur Tombol Stop (Menggunakan Gambar Vektor, bukan Teks lagi)
         if (item.isFinished || item.isStopped) {
             holder.btnStop.setVisibility(View.GONE);                                                  
         } else {
             holder.btnStop.setVisibility(View.VISIBLE);
             holder.btnStop.setEnabled(true);
             holder.btnStop.setAlpha(1.0f);
-            holder.btnStop.setImageResource(R.drawable.ic_minus); // Panggil Ikon Vektor
+            holder.btnStop.setImageResource(R.drawable.ic_minus); 
         }
     }
 
@@ -96,7 +114,7 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
             DownloadItem clickedItem = downloadList.get(currentPos);                                      
             holder.speed.setText("Canceling...");
             holder.btnStop.setEnabled(false);              
-            holder.btnStop.setAlpha(0.3f); // Buat tombol meredup saat ditekan                                                                 
+            holder.btnStop.setAlpha(0.3f);                                                              
             clickedItem.isStopped = true;      
             
             new Thread(() -> {
@@ -121,8 +139,8 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title, duration, size, speed;
-        ImageButton btnStop; // Fix Utama: Harus ImageButton
-        ProgressBar progressBar; // Fix Progress Bar
+        ImageButton btnStop; 
+        ProgressBar progressBar; 
 
         public ViewHolder(View itemView) {
             super(itemView);                               
