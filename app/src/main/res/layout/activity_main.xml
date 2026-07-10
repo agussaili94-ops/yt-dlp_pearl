@@ -6,155 +6,82 @@
     android:orientation="vertical"
     android:background="@color/bg_main">       
     
-    <LinearLayout
-        android:id="@+id/loading_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone">
+    <LinearLayout android:id="@+id/loading_layout" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical" android:visibility="gone">
         <ProgressBar android:layout_width="wrap_content" android:layout_height="wrap_content" android:indeterminateTint="@color/accent_blue"/>
         <TextView android:id="@+id/loading_status_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="Preparing FFmpeg..." android:textColor="@color/text_dark"/>
     </LinearLayout>                            
     
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:paddingTop="32dp"
-        android:paddingHorizontal="20dp">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="vertical" android:paddingTop="32dp" android:paddingHorizontal="20dp">
         
-        <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/bg_card_white"
-            android:padding="8dp"
-            android:elevation="2dp"
-            android:src="@drawable/logo_app" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Version : 2026:03:11"
-            android:textAlignment="center"
-            android:textColor="@color/text_light"
-            android:textSize="12sp" />
-            
-        <TextView
-            android:id="@+id/active_counter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="0/1000"
-            android:textAlignment="center"
-            android:textColor="@color/text_dark"
-            android:textSize="18sp"
-            android:layout_marginBottom="24dp"/>
-
+        <!-- Logo Aplikasi dengan Card Style Melengkung & Bayangan Lembut -->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_gravity="center_horizontal"
             android:background="@drawable/bg_card_white"
             android:elevation="4dp"
-            android:orientation="vertical"
-            android:paddingHorizontal="20dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="8dp"
-            android:layout_marginBottom="20dp">
+            android:gravity="center"
+            android:layout_marginBottom="8dp">
+             <ImageView 
+                android:layout_width="56dp" 
+                android:layout_height="56dp" 
+                android:src="@drawable/logo_app" />
+        </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Version : 2026:03:11" android:textAlignment="center" android:textColor="@color/text_light" android:textSize="12sp" />
+        <TextView android:id="@+id/active_counter" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="0/1000" android:textAlignment="center" android:textColor="@color/text_dark" android:textSize="18sp" android:layout_marginBottom="24dp"/>
+
+        <!-- Search Bar Sempurna -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/bg_card_white" android:elevation="4dp" android:orientation="vertical" android:paddingTop="12dp" android:paddingBottom="12dp" android:layout_marginBottom="20dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingHorizontal="20dp">
                 
-                <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:src="@drawable/ic_link"
-                    android:layout_marginEnd="12dp"/>
+                <!-- Ikon Link dalam Kotak Biru Muda -->
+                <LinearLayout
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/bg_icon_link_light"
+                    android:gravity="center"
+                    android:layout_marginEnd="12dp">
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_link" android:tint="@color/accent_blue"/>
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/video_url_edit_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:hint="Video / Stream URL"
-                    android:textColorHint="@color/text_light"
-                    android:textColor="@color/text_dark"
-                    android:textSize="16sp"
-                    android:inputType="textUri"
-                    android:maxLines="1"/>
+                <EditText android:id="@+id/video_url_edit_text" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:background="@null" android:hint="Video / Stream URL" android:textColorHint="@color/text_light" android:textColor="@color/text_dark" android:textSize="16sp" android:inputType="textUri" android:maxLines="1"/>
+                
+                <!-- GARIS VERTIKAL PEMISAH -->
+                <View
+                    android:layout_width="1.5dp"
+                    android:layout_height="26dp"
+                    android:background="@color/progress_bg"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="8dp"/>
 
-                <ImageButton
-                    android:id="@+id/download_button"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_search"
-                    android:padding="8dp"
-                    android:scaleType="fitCenter"/>
+                <!-- Ikon Search dengan tint warna biru tegas -->
+                <ImageButton android:id="@+id/download_button" android:layout_width="32dp" android:layout_height="32dp" android:background="@android:color/transparent" android:src="@drawable/ic_search" android:scaleType="fitCenter" android:tint="@color/accent_blue"/>
             </LinearLayout>                    
             
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/accent_blue"
-                android:layout_marginHorizontal="8dp"/>
+            <!-- Garis biru proporsional di bawah (hanya sepanjang kotak teks) -->
+            <View android:layout_width="match_parent" android:layout_height="2dp" android:layout_marginTop="8dp" android:background="@color/accent_blue" android:layout_marginStart="24dp" android:layout_marginEnd="64dp"/>
         </LinearLayout>
         
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingBottom="24dp"
-            android:overScrollMode="never" />
+        <androidx.recyclerview.widget.RecyclerView android:id="@+id/recycler_view" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:clipToPadding="false" android:paddingBottom="16dp" android:overScrollMode="never" />
+
+        <!-- Teks Hiasan Bawah -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" android:orientation="vertical" android:layout_marginBottom="16dp">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Unduh video favoritmu dengan mudah!" android:textColor="@color/text_dark" android:textSize="13sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tempel link video atau stream di atas untuk memulai." android:textColor="@color/text_light" android:textSize="11sp" android:layout_marginTop="4dp"/>
+        </LinearLayout>
     </LinearLayout>                            
     
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@color/white"
-        android:elevation="16dp"
-        android:orientation="horizontal"
-        android:paddingHorizontal="24dp">      
-        
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+    <!-- Navigasi Bawah -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="70dp" android:background="@color/white" android:elevation="16dp" android:orientation="horizontal" android:paddingHorizontal="24dp">      
+        <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="center">
             <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_nav_folder" />
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Unduhan" android:textSize="11sp" android:textColor="@color/accent_blue" android:layout_marginTop="4dp"/>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center|top"
-            android:paddingTop="6dp">
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@drawable/bg_circle_blue"
-                android:src="@drawable/ic_arrow_down"
-                android:scaleType="centerInside"
-                android:padding="12dp" />
+        <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center|top" android:paddingTop="6dp">
+            <ImageView android:layout_width="48dp" android:layout_height="48dp" android:background="@drawable/bg_circle_blue" android:src="@drawable/ic_arrow_down" android:scaleType="centerInside" android:padding="12dp" />
         </LinearLayout>                        
-        
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+        <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="center">
             <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_nav_settings" />
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Pengaturan" android:textSize="11sp" android:textColor="@color/text_light" android:layout_marginTop="4dp"/>
         </LinearLayout>

@@ -27,6 +27,7 @@ import com.yausername.youtubedl_android.YoutubeDLRequest;
 import com.yausername.ffmpeg.FFmpeg;
 import com.arthenica.ffmpegkit.FFmpegKit;
 import com.arthenica.ffmpegkit.FFmpegSession;
+
 import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
         if (getSupportActionBar() != null) getSupportActionBar().hide();
                                                        
         loadingLayout = findViewById(R.id.loading_layout);                                            
@@ -131,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 String lowerUrl = url.toLowerCase();                                          
                 
+                // 1. Eksekusi Langsung: Jika input adalah link hasil sniffing
                 if (lowerUrl.contains(".m3u8") || lowerUrl.contains(".flv") || lowerUrl.contains(".rtmp") || lowerUrl.contains(".mpd")) {                        
                     String genTitle = "LiveStream_" + System.currentTimeMillis();
                     uiHandler.post(() -> item.fileName = genTitle + ".mp4");
@@ -138,24 +141,29 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                                                                
+                // 2. Ekstraksi: Gunakan yt-dlp untuk mendapat link murni
                 uiHandler.post(() -> item.speedStr = "Extracting link...");
                 YoutubeDLRequest extractReq = new YoutubeDLRequest(url);                                      
                 extractReq.addOption("--print", "%(title)s\n%(url)s");
                 extractReq.addOption("--no-warnings");                                        
+                
                 com.yausername.youtubedl_android.YoutubeDLResponse response = YoutubeDL.getInstance().execute(extractReq, item.processId);
                                                                
                 String out = response.getOut();
                 if (out != null && !out.trim().isEmpty()) {
                     String[] lines = out.trim().split("\n");
                     String title = "Extracted_Media";
-                    String streamUrl = lines[0];                
+                    String streamUrl = lines[0]; // fallback jika hanya 1 baris               
+                    
                     if (lines.length >= 2) {
                         title = lines[0].replaceAll("[\\\\/:*?\"<>|]", "_");
                         streamUrl = lines[lines.length - 1];
                     }                          
+                    
                     final String finalTitle = title;
                     uiHandler.post(() -> item.fileName = finalTitle + ".mp4");
 
+                    // 3. Routing Berdasarkan Format Hasil Ekstrak
                     String lowerStreamUrl = streamUrl.toLowerCase();
                     if (lowerStreamUrl.contains(".m3u8") || lowerStreamUrl.contains(".flv") ||
                         lowerStreamUrl.contains(".rtmp") || lowerStreamUrl.contains(".mpd") ||
@@ -163,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
                         uiHandler.post(() -> item.speedStr = "Connecting to FFmpegKit...");
                         downloadWithFFmpegKit(finalTitle, streamUrl, item);
                     } else {
+                        // Fallback ke yt-dlp native murni HANYA jika berupa VOD biasa
                         downloadWithYtDlp(url, item);
                     }
                 } else {
@@ -225,12 +234,23 @@ public class MainActivity extends AppCompatActivity {
                     });
                 }
             },
-            logCallback -> { },                                             
+            logCallback -> { 
+                // Log tidak dicetak
+            },                                             
             statisticsCallback -> {
                 if (item.isStopped) return;
+                
+                // 🔥 LOGIKA DETAK JANTUNG FFMPEG 🔥
+                // Setiap denyut data masuk, progress bergeser maju
+                item.heartbeatCounter += 7; 
+                if (item.heartbeatCounter > 100) {
+                    item.heartbeatCounter = 0; // Reset ke kiri jika penuh
+                }
+                item.progress = item.heartbeatCounter;
                                                                
                 long sizeInBytes = (long) statisticsCallback.getSize();                                       
                 long timeVideoMs = (long) statisticsCallback.getTime();                       
+                
                 long seconds = (timeVideoMs / 1000) % 60;                                                     
                 long minutes = (timeVideoMs / (1000 * 60)) % 60;
                 long hours = (timeVideoMs / (1000 * 60 * 60)) % 24;
@@ -266,15 +286,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void downloadWithYtDlp(String url, DownloadItem item) throws Exception {                  
         YoutubeDLRequest request = RecorderUtils.buildRequest(url);                           
+        
         YoutubeDL.getInstance().execute(request, item.processId, (progress, etaInSeconds, line) -> {                                                     
             if (item.isStopped) throw new RuntimeException("Successfully stopped");                       
             if (etaInSeconds > 0) item.durationStr = "ETA: " + etaInSeconds + "s";
             
-            // 🟢 Injeksi Progress Nyata!
+            // 🟢 Injeksi Progress Nyata untuk VOD
             item.progress = Math.round(progress);
-            if (item.progress > 0) {
-                item.isIndeterminate = false; // Matikan animasi looping, pakai persentase asli!
-            }
 
             RecorderUtils.parseRealtimeLog(line, item);
             notifyProgressUpdate(item);

@@ -1,11 +1,8 @@
 package com.m3u8dl;
 
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.LinearInterpolator;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -13,19 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.yausername.youtubedl_android.YoutubeDL;
 import com.arthenica.ffmpegkit.FFmpegKit;
-
 import java.util.ArrayList;
 import java.util.List;                         
 
 public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHolder> {
-
     private List<DownloadItem> downloadList = new ArrayList<>();
 
     public void addDownload(DownloadItem item) {
         downloadList.add(item);
         notifyItemInserted(downloadList.size() - 1);
     }                                          
-    
     public void removeDownload(DownloadItem item) {
         int index = downloadList.indexOf(item);
         if (index != -1) {                                 
@@ -33,10 +27,7 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
             notifyItemRemoved(index);                  
         }
     }                                          
-    
-    public List<DownloadItem> getItems() {
-        return downloadList;                       
-    }
+    public List<DownloadItem> getItems() { return downloadList; }
 
     @NonNull
     @Override                                      
@@ -47,25 +38,19 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
     
     @Override                                      
     public void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull List<Object> payloads) {                                         
-        if (!payloads.isEmpty()) {
-            bindData(holder, downloadList.get(position));
-        } else {
-            super.onBindViewHolder(holder, position, payloads);                                       
-        }
+        if (!payloads.isEmpty()) { bindData(holder, downloadList.get(position)); } 
+        else { super.onBindViewHolder(holder, position, payloads); }
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {                          
         DownloadItem item = downloadList.get(position);                                               
         bindData(holder, item);
-
         holder.btnStop.setOnClickListener(v -> handleStopProcess(holder));
         holder.itemView.setOnLongClickListener(v -> {
             handleStopProcess(holder);
             removeDownload(item);
-            if (v.getContext() instanceof MainActivity) {
-                ((MainActivity) v.getContext()).updateCounter();
-            }
+            if (v.getContext() instanceof MainActivity) { ((MainActivity) v.getContext()).updateCounter(); }
             return true;                               
         });                                        
     }                                          
@@ -76,27 +61,9 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
         holder.size.setText(item.sizeStr);
         holder.speed.setText(item.speedStr);   
         
-        // 🔥 SOLUSI ANIMASI PROGRESS BAR PADAT (Tidak Putus-Putus)
-        holder.progressBar.setIndeterminate(false); // Kita matikan putus-putus bawaan Android
-        
-        if (item.isIndeterminate) {
-            // Kita buat animasi balok padat berjalan dari kiri ke kanan berulang-ulang
-            if (holder.progressBar.getTag() == null) {
-                ObjectAnimator anim = ObjectAnimator.ofInt(holder.progressBar, "progress", 0, 100);
-                anim.setDuration(1200); // Kecepatan meluncur
-                anim.setInterpolator(new LinearInterpolator());
-                anim.setRepeatCount(ValueAnimator.INFINITE);
-                anim.start();
-                holder.progressBar.setTag(anim); // Simpan animasi agar tidak tumpang tindih
-            }
-        } else {
-            // Jika ada nilai persentase nyata (Video VOD)
-            if (holder.progressBar.getTag() != null) {
-                ((ObjectAnimator) holder.progressBar.getTag()).cancel();
-                holder.progressBar.setTag(null);
-            }
-            holder.progressBar.setProgress(item.progress);
-        }
+        // Memasukkan angka progress murni
+        holder.progressBar.setIndeterminate(false); 
+        holder.progressBar.setProgress(item.progress);
 
         if (item.isFinished || item.isStopped) {
             holder.btnStop.setVisibility(View.GONE);                                                  
@@ -104,7 +71,6 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
             holder.btnStop.setVisibility(View.VISIBLE);
             holder.btnStop.setEnabled(true);
             holder.btnStop.setAlpha(1.0f);
-            holder.btnStop.setImageResource(R.drawable.ic_minus); 
         }
     }
 
@@ -116,32 +82,24 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
             holder.btnStop.setEnabled(false);              
             holder.btnStop.setAlpha(0.3f);                                                              
             clickedItem.isStopped = true;      
-            
             new Thread(() -> {
                 try {
-                    if (clickedItem.ffmpegSessionId != null) {
-                        FFmpegKit.cancel(clickedItem.ffmpegSessionId);
-                    } else {                                           
+                    if (clickedItem.ffmpegSessionId != null) { FFmpegKit.cancel(clickedItem.ffmpegSessionId); } 
+                    else {                                           
                         YoutubeDL.getInstance().destroyProcessById(clickedItem.processId);                            
                         RecorderUtils.killZombieFFmpeg(clickedItem.fileName);                                     
                     }
-                } catch (Exception e) {                            
-                    e.printStackTrace();                       
-                }                                          
+                } catch (Exception e) { e.printStackTrace(); }                                          
             }).start();
         }                                          
     }                                                                                             
     
-    @Override                                      
-    public int getItemCount() {
-        return downloadList.size();
-    }                                                                                             
+    @Override public int getItemCount() { return downloadList.size(); }                                                                                             
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title, duration, size, speed;
         ImageButton btnStop; 
         ProgressBar progressBar; 
-
         public ViewHolder(View itemView) {
             super(itemView);                               
             title = itemView.findViewById(R.id.item_title);

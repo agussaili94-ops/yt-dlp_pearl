@@ -8,186 +8,52 @@
     android:layout_marginBottom="16dp"
     android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:background="@drawable/bg_icon_purple"
-        android:gravity="center"
-        android:layout_marginEnd="16dp">
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_play"/>
+    <!-- Ikon Play Ungu Tegas -->
+    <LinearLayout android:layout_width="56dp" android:layout_height="56dp" android:backgroundTint="@color/accent_purple" android:background="@drawable/bg_card_white" android:gravity="center" android:layout_marginEnd="16dp">
+        <ImageView android:layout_width="28dp" android:layout_height="28dp" android:src="@drawable/ic_play_solid"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/item_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toStartOf="@id/btn_stop"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="8dp"
-                android:text="Judul Video..."
-                android:textColor="@color/text_dark"
-                android:textSize="14sp"
-                android:fontFamily="sans-serif-medium"
-                android:maxLines="2"
-                android:ellipsize="end"/>
-            <ImageButton
-                android:id="@+id/btn_stop"
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/bg_circle_red"
-                android:src="@drawable/ic_minus"
-                android:scaleType="centerInside"
-                android:padding="6dp"/>
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+            <!-- Judul Tanpa Bold -->
+            <TextView android:id="@+id/item_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_toStartOf="@id/btn_stop" android:layout_centerVertical="true" android:layout_marginEnd="12dp" android:text="Judul Video..." android:textColor="@color/text_dark" android:textSize="14sp" android:maxLines="2" android:ellipsize="end"/>
+            <!-- Ikon Stop Merah Tegas -->
+            <ImageButton android:id="@+id/btn_stop" android:layout_width="26dp" android:layout_height="26dp" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:background="@drawable/bg_circle_red" android:src="@drawable/ic_minus_solid" android:scaleType="centerInside" android:padding="6dp"/>
         </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="12dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            
-            <ProgressBar
-                android:id="@+id/item_progress"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="0dp"
-                android:layout_height="8dp"
-                android:layout_weight="1"
-                android:progressDrawable="@drawable/custom_progressbar"
-                android:layout_marginEnd="12dp"/>
-                
-            <TextView
-                android:id="@+id/item_duration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00:25"
-                android:textColor="@color/text_light"
-                android:textSize="11sp"/>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:layout_marginBottom="12dp" android:gravity="center_vertical" android:orientation="horizontal">
+            <!-- Progress Bar dengan custom drawable tebal -->
+            <ProgressBar android:id="@+id/item_progress" style="?android:attr/progressBarStyleHorizontal" android:layout_width="0dp" android:layout_height="6dp" android:layout_weight="1" android:progressDrawable="@drawable/custom_progressbar" android:layout_marginEnd="12dp" android:max="100"/>
+            <TextView android:id="@+id/item_duration" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="00:00:25" android:textColor="@color/text_light" android:textSize="11sp"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/info_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-                    <ImageView
-                        android:layout_width="12dp"
-                        android:layout_height="12dp"
-                        android:src="@drawable/ic_file"
-                        android:tint="#4C73F4" />
-                    <TextView
-                        android:id="@+id/item_size"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:text="3.00 MB"
-                        android:textColor="@color/text_dark"
-                        android:textSize="11sp"
-                        android:singleLine="true"
-                        android:fontFamily="sans-serif-medium"/>
+        <LinearLayout android:id="@+id/info_layout" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+            <!-- Ukuran -->
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                    <ImageView android:layout_width="12dp" android:layout_height="12dp" android:src="@drawable/ic_file_blue"/>
+                    <TextView android:id="@+id/item_size" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:text="3.00 MB" android:textColor="@color/text_dark" android:textSize="11sp" android:singleLine="true" />
                 </LinearLayout>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="Ukuran"
-                    android:textColor="@color/text_light"
-                    android:textSize="9sp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="18dp" android:text="Ukuran" android:textColor="@color/text_light" android:textSize="9sp"/>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-                    <ImageView
-                        android:layout_width="12dp"
-                        android:layout_height="12dp"
-                        android:src="@drawable/ic_speed"
-                        android:tint="#4CAF50" />
-                    <TextView
-                        android:id="@+id/item_speed"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:text="123 KB/s"
-                        android:textColor="@color/text_dark"
-                        android:textSize="11sp"
-                        android:singleLine="true"
-                        android:fontFamily="sans-serif-medium"/>
+            <!-- Kecepatan -->
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                    <ImageView android:layout_width="12dp" android:layout_height="12dp" android:src="@drawable/ic_speed_green"/>
+                    <TextView android:id="@+id/item_speed" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:text="123 KB/s" android:textColor="@color/text_dark" android:textSize="11sp" android:singleLine="true" />
                 </LinearLayout>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="Kecepatan"
-                    android:textColor="@color/text_light"
-                    android:textSize="9sp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="18dp" android:text="Kecepatan" android:textColor="@color/text_light" android:textSize="9sp"/>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-                    <ImageView
-                        android:layout_width="12dp"
-                        android:layout_height="12dp"
-                        android:src="@drawable/ic_time"
-                        android:tint="#FF9800" />
-                    <TextView
-                        android:id="@+id/item_status"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:text="Active"
-                        android:textColor="@color/text_dark"
-                        android:textSize="11sp"
-                        android:singleLine="true"
-                        android:fontFamily="sans-serif-medium"/>
+            <!-- Waktu/Status -->
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                    <ImageView android:layout_width="12dp" android:layout_height="12dp" android:src="@drawable/ic_time_orange"/>
+                    <TextView android:id="@+id/item_status" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:text="Active" android:textColor="@color/text_dark" android:textSize="11sp" android:singleLine="true" />
                 </LinearLayout>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="Status"
-                    android:textColor="@color/text_light"
-                    android:textSize="9sp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="18dp" android:text="Waktu" android:textColor="@color/text_light" android:textSize="9sp"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

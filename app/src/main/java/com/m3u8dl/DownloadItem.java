@@ -13,11 +13,10 @@ public class DownloadItem {
     public boolean isFinished = false;
     public boolean isStopped = false;
     
-    // 🟢 Variabel Baru untuk Progress Bar!
+    // 🟢 Memori untuk Detak Jantung
     public int progress = 0;
-    public boolean isIndeterminate = true; 
+    public int heartbeatCounter = 0; 
 
-    // Memori untuk Speedometer Jaringan
     public long lastTimeMs = 0;
     public long lastSizeInBytes = 0;
 
