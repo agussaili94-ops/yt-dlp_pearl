@@ -78,9 +78,6 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
         } else {
             holder.btnStop.setVisibility(View.VISIBLE);
             holder.btnStop.setEnabled(true);
-            holder.btnStop.setAlpha(1.0f);
-            // KUNCI PERBAIKAN: Tidak perlu memanggil setImageResource karena btnStop sekarang adalah TextView 
-            // dengan teks "—" dan background bg_circle_red dari layout XML.
         }
     }
 
@@ -89,8 +86,9 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
         if (currentPos != RecyclerView.NO_POSITION) {
             DownloadItem clickedItem = downloadList.get(currentPos);
             holder.speed.setText("Canceling...");
-            holder.btnStop.setEnabled(false);
-            holder.btnStop.setAlpha(0.3f);
+            
+            // PERBAIKAN: Sembunyikan tombol secara langsung alih-alih mengubah alpha untuk menghindari crash UI Thread
+            holder.btnStop.setVisibility(View.GONE);
             clickedItem.isStopped = true;
             
             new Thread(() -> {
@@ -115,8 +113,7 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title, duration, size, speed;
-        // KUNCI PERBAIKAN: Mengubah ImageButton menjadi TextView sesuai layout item_download.xml
-        TextView btnStop; 
+        View btnStop; // Memastikan referensi sebagai View biasa (berlaku untuk RelativeLayout XML)
         ProgressBar progressBar;
         
         public ViewHolder(View itemView) {
@@ -125,7 +122,7 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
             duration = itemView.findViewById(R.id.item_duration);
             size = itemView.findViewById(R.id.item_size);
             speed = itemView.findViewById(R.id.item_speed);
-            btnStop = itemView.findViewById(R.id.btn_stop); // Sekarang di-cast ke TextView secara otomatis
+            btnStop = itemView.findViewById(R.id.btn_stop);
             progressBar = itemView.findViewById(R.id.item_progress);
         }
     }

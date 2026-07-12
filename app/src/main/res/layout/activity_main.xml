@@ -90,7 +90,7 @@
                     android:layout_height="36dp" 
                     android:background="@drawable/bg_icon_link_light" 
                     android:gravity="center" 
-                    android:layout_marginEnd="12dp">
+                    android:layout_marginEnd="8dp">
                     <ImageView 
                         android:layout_width="18dp" 
                         android:layout_height="18dp" 
@@ -129,14 +129,14 @@
                     android:tint="@color/accent_blue"/>
             </LinearLayout>
 
-            <!-- NILAI DITERAPKAN: Garis biru tinggi 2dp, margin kiri 64dp, margin kanan 8dp -->
+            <!-- Garis biru diperpanjang: margin kiri disetel ke 60dp agar sejajar lurus dengan area teks, dan margin kanan disetel ke 8dp sesuai request -->
             <View 
                 android:layout_width="match_parent" 
                 android:layout_height="2dp" 
                 android:background="@color/accent_blue" 
                 android:layout_below="@id/input_container"
                 android:layout_marginTop="2dp"
-                android:layout_marginStart="64dp"
+                android:layout_marginStart="60dp"
                 android:layout_marginEnd="8dp"/>
                 
         </RelativeLayout>
