@@ -41,26 +41,26 @@
                 android:layout_width="0dp" 
                 android:layout_height="wrap_content" 
                 android:layout_weight="1" 
-                android:layout_marginEnd="12dp" 
+                android:layout_marginEnd="10dp" 
                 android:text="Judul Video..." 
                 android:textColor="@color/text_dark" 
                 android:textSize="14sp" 
                 android:maxLines="2" 
                 android:ellipsize="end"/>
 
-            <!-- NILAI DITERAPKAN: Tombol stop 22dp -->
+            <!-- Tombol Stop: Diameter 20dp -->
             <RelativeLayout 
                 android:id="@+id/btn_stop" 
-                android:layout_width="22dp" 
-                android:layout_height="22dp" 
+                android:layout_width="20dp" 
+                android:layout_height="20dp" 
                 android:background="@drawable/bg_circle_red"
                 android:clickable="true"
                 android:focusable="true">
                 
-                <!-- NILAI DITERAPKAN: Garis minus 10dp x 2dp -->
+                <!-- Garis minus: 11dp x 2.5dp -->
                 <View
-                    android:layout_width="10dp"
-                    android:layout_height="2dp"
+                    android:layout_width="11dp"
+                    android:layout_height="2.5dp"
                     android:background="#FFFFFF"
                     android:layout_centerInParent="true" />
             </RelativeLayout>
@@ -73,7 +73,7 @@
             android:layout_marginBottom="10dp" 
             android:gravity="center_vertical" 
             android:orientation="horizontal">
-            <!-- NILAI DITERAPKAN: Tinggi Progress bar 4dp -->
+            <!-- Progress bar: Tinggi 4dp -->
             <ProgressBar 
                 android:id="@+id/item_progress" 
                 style="?android:attr/progressBarStyleHorizontal" 
@@ -182,7 +182,7 @@
                         android:layout_width="wrap_content" 
                         android:layout_height="wrap_content" 
                         android:layout_marginStart="6dp" 
-                        android:text="Active" 
+                        text="Active" 
                         android:textColor="@color/text_dark" 
                         android:textSize="11sp" 
                         android:singleLine="true" />

@@ -65,44 +65,46 @@
             android:textSize="18sp" 
             android:layout_marginBottom="24dp"/>
 
-        <!-- Search Bar -->
-        <RelativeLayout 
+        <!-- Search Bar yang disempurnakan (Garis biru persis seperti referensi) -->
+        <LinearLayout 
             android:layout_width="match_parent" 
             android:layout_height="wrap_content" 
             android:background="@drawable/bg_card_white" 
             android:elevation="12dp"
             android:outlineAmbientShadowColor="#26000000"
             android:outlineSpotShadowColor="#1A000000"
-            android:paddingTop="12dp" 
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            paddingTop="12dp"
             android:paddingBottom="12dp" 
+            android:paddingHorizontal="16dp"
             android:layout_marginBottom="20dp">
 
-            <LinearLayout
-                android:id="@+id/input_container"
-                android:layout_width="match_parent" 
-                android:layout_height="wrap_content" 
-                android:orientation="horizontal" 
-                android:gravity="center_vertical" 
-                android:paddingHorizontal="16dp">
+            <!-- Kotak Link (Warna Biru Muda) -->
+            <LinearLayout 
+                android:layout_width="36dp" 
+                android:layout_height="36dp" 
+                android:background="@drawable/bg_icon_link_light" 
+                android:gravity="center" 
+                android:layout_marginEnd="12dp">
+                <ImageView 
+                    android:layout_width="18dp" 
+                    android:layout_height="18dp" 
+                    android:src="@drawable/ic_link" 
+                    android:tint="@color/accent_blue"/>
+            </LinearLayout>
 
-                <LinearLayout 
-                    android:layout_width="36dp" 
-                    android:layout_height="36dp" 
-                    android:background="@drawable/bg_icon_link_light" 
-                    android:gravity="center" 
-                    android:layout_marginEnd="8dp">
-                    <ImageView 
-                        android:layout_width="18dp" 
-                        android:layout_height="18dp" 
-                        android:src="@drawable/ic_link" 
-                        android:tint="@color/accent_blue"/>
-                </LinearLayout>
+            <!-- Kolom Tengah (Teks + Garis Biru) -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <EditText 
                     android:id="@+id/video_url_edit_text" 
-                    android:layout_width="0dp" 
-                    android:layout_height="40dp"
-                    android:layout_weight="1" 
+                    android:layout_width="match_parent" 
+                    android:layout_height="40dp" 
                     android:background="@null" 
                     android:hint="Video / Stream URL" 
                     android:textColorHint="@color/text_light" 
@@ -112,34 +114,32 @@
                     android:maxLines="1" 
                     android:paddingHorizontal="4dp"/>
 
+                <!-- Garis Biru. Karena berada di dalam kolom teks, lebarnya otomatis mengikuti teks. marginEnd 8dp memastikannya tidak menyentuh garis pemisah vertikal -->
                 <View 
-                    android:layout_width="1dp" 
-                    android:layout_height="24dp" 
-                    android:background="#E0E0E0" 
-                    android:layout_marginStart="12dp" 
-                    android:layout_marginEnd="8dp"/>
-
-                <ImageButton 
-                    android:id="@+id/download_button" 
-                    android:layout_width="36dp" 
-                    android:layout_height="36dp" 
-                    android:background="@android:color/transparent" 
-                    android:src="@drawable/ic_search" 
-                    android:scaleType="centerInside" 
-                    android:tint="@color/accent_blue"/>
+                    android:layout_width="match_parent" 
+                    android:layout_height="2dp" 
+                    android:background="@color/accent_blue" 
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp" />
             </LinearLayout>
 
-            <!-- Garis biru diperpanjang: margin kiri disetel ke 60dp agar sejajar lurus dengan area teks, dan margin kanan disetel ke 8dp sesuai request -->
+            <!-- Garis Pemisah Vertikal Abu-abu -->
             <View 
-                android:layout_width="match_parent" 
-                android:layout_height="2dp" 
-                android:background="@color/accent_blue" 
-                android:layout_below="@id/input_container"
-                android:layout_marginTop="2dp"
-                android:layout_marginStart="60dp"
+                android:layout_width="1dp" 
+                android:layout_height="24dp" 
+                android:background="#E0E0E0" 
                 android:layout_marginEnd="8dp"/>
-                
-        </RelativeLayout>
+
+            <!-- Ikon Kaca Pembesar -->
+            <ImageButton 
+                android:id="@+id/download_button" 
+                android:layout_width="36dp" 
+                android:layout_height="36dp" 
+                android:background="@android:color/transparent" 
+                android:src="@drawable/ic_search" 
+                android:scaleType="centerInside" 
+                android:tint="@color/accent_blue"/>
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView 
             android:id="@+id/recycler_view" 
