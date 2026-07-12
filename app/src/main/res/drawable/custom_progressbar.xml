@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Warna dasar (abu-abu/kosong) -->
     <item android:id="@android:id/background">
-        <shape><corners android:radius="4dp"/><solid android:color="@color/progress_bg"/></shape>
+        <shape>
+            <!-- NILAI DITERAPKAN: Radius progress 2dp -->
+            <corners android:radius="2dp" />
+            <solid android:color="#E0E0E0" />
+        </shape>
     </item>
+    
+    <!-- Warna bar (biru/terisi) -->
     <item android:id="@android:id/progress">
-        <scale android:scaleWidth="100%">
-            <shape><corners android:radius="4dp"/><solid android:color="@color/accent_blue"/></shape>
-        </scale>
+        <clip>
+            <shape>
+                <!-- NILAI DITERAPKAN: Radius progress 2dp -->
+                <corners android:radius="2dp" />
+                <solid android:color="@color/accent_blue" />
+            </shape>
+        </clip>
     </item>
 </layer-list>
