@@ -34,11 +34,13 @@
         android:paddingTop="32dp" 
         android:paddingHorizontal="16dp">
 
+        <!-- Logo App dengan Shadow Bawaan (Elevation) -->
         <LinearLayout 
             android:layout_width="76dp" 
             android:layout_height="76dp" 
             android:layout_gravity="center_horizontal" 
-            android:background="@drawable/bg_card_soft_shadow" 
+            android:background="@drawable/bg_card_white" 
+            android:elevation="8dp"
             android:gravity="center" 
             android:layout_marginBottom="8dp">
              <ImageView 
@@ -50,7 +52,7 @@
         <TextView 
             android:layout_width="match_parent" 
             android:layout_height="wrap_content" 
-            android:text="Version : 2026:03:11" 
+            android:text="Version : 2026:07:12" 
             android:textAlignment="center" 
             android:textColor="@color/text_light" 
             android:textSize="12sp" />
@@ -64,12 +66,16 @@
             android:textSize="18sp" 
             android:layout_marginBottom="24dp"/>
 
+        <!-- Search Bar: Shadow Halus & Garis Biru Presisi -->
         <LinearLayout 
             android:layout_width="match_parent" 
             android:layout_height="wrap_content" 
-            android:background="@drawable/bg_card_soft_shadow" 
+            android:background="@drawable/bg_card_white" 
+            android:elevation="12dp"
+            android:outlineAmbientShadowColor="#26000000"
+            android:outlineSpotShadowColor="#1A000000"
             android:orientation="vertical" 
-            android:paddingTop="8dp" 
+            android:paddingTop="12dp" 
             android:paddingBottom="12dp" 
             android:layout_marginBottom="20dp">
 
@@ -80,54 +86,64 @@
                 android:gravity="center_vertical" 
                 android:paddingHorizontal="16dp">
 
-                <LinearLayout 
-                    android:layout_width="36dp" 
-                    android:layout_height="36dp" 
-                    android:background="@drawable/bg_icon_link_light" 
-                    android:gravity="center" 
-                    android:layout_marginEnd="12dp">
-                    <ImageView 
-                        android:layout_width="18dp" 
-                        android:layout_height="18dp" 
-                        android:src="@drawable/ic_link" 
-                        android:tint="@color/accent_blue"/>
-                </LinearLayout>
-
-                <!-- DIPERBAIKI: Bungkus EditText dan Garis Biru menjadi satu kolom -->
+                <!-- WADAH KIRI: Menggabungkan Ikon Link, Input, dan Garis Biru -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <EditText 
-                        android:id="@+id/video_url_edit_text" 
-                        android:layout_width="match_parent" 
-                        android:layout_height="40dp" 
-                        android:background="@null" 
-                        android:hint="Video / Stream URL" 
-                        android:textColorHint="@color/text_light" 
-                        android:textColor="@color/text_dark" 
-                        android:textSize="15sp" 
-                        android:inputType="textUri" 
-                        android:maxLines="1" 
-                        android:paddingHorizontal="4dp"/>
+                    <!-- Baris Link dan Text Input -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        
+                        <LinearLayout 
+                            android:layout_width="36dp" 
+                            android:layout_height="36dp" 
+                            android:background="@drawable/bg_icon_link_light" 
+                            android:gravity="center" 
+                            android:layout_marginEnd="12dp">
+                            <ImageView 
+                                android:layout_width="18dp" 
+                                android:layout_height="18dp" 
+                                android:src="@drawable/ic_link" 
+                                android:tint="@color/accent_blue"/>
+                        </LinearLayout>
 
-                    <!-- Garis Biru sekarang akan selalu sama panjang dengan kolom input teks -->
+                        <EditText 
+                            android:id="@+id/video_url_edit_text" 
+                            android:layout_width="match_parent" 
+                            android:layout_height="40dp" 
+                            android:background="@null" 
+                            android:hint="Video / Stream URL" 
+                            android:textColorHint="@color/text_light" 
+                            android:textColor="@color/text_dark" 
+                            android:textSize="15sp" 
+                            android:inputType="textUri" 
+                            android:maxLines="1" 
+                            android:paddingHorizontal="4dp"/>
+                    </LinearLayout>
+
+                    <!-- Garis Biru Bawah (otomatis selebar Wadah Kiri) -->
                     <View 
                         android:layout_width="match_parent" 
-                        android:layout_height="1.5dp" 
+                        android:layout_height="2dp" 
                         android:background="@color/accent_blue" 
-                        android:layout_marginHorizontal="4dp"/>
+                        android:layout_marginTop="4dp"/>
                 </LinearLayout>
 
+                <!-- Pemisah Vertikal -->
                 <View 
                     android:layout_width="1dp" 
                     android:layout_height="24dp" 
                     android:background="#E0E0E0" 
-                    android:layout_marginStart="8dp" 
+                    android:layout_marginStart="12dp" 
                     android:layout_marginEnd="8dp"/>
 
+                <!-- Tombol Cari -->
                 <ImageButton 
                     android:id="@+id/download_button" 
                     android:layout_width="36dp" 

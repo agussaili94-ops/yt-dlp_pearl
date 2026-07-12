@@ -1,12 +1,8 @@
 package com.m3u8dl;
 
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.LinearInterpolator;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -14,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.yausername.youtubedl_android.YoutubeDL;
 import com.arthenica.ffmpegkit.FFmpegKit;
 import java.util.ArrayList;
-import java.util.List;                         
+import java.util.List;
 
 public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHolder> {
     private List<DownloadItem> downloadList = new ArrayList<>();
@@ -22,98 +18,115 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
     public void addDownload(DownloadItem item) {
         downloadList.add(item);
         notifyItemInserted(downloadList.size() - 1);
-    }                                          
-    
+    }
+
     public void removeDownload(DownloadItem item) {
         int index = downloadList.indexOf(item);
-        if (index != -1) {                                 
+        if (index != -1) {
             downloadList.remove(index);
-            notifyItemRemoved(index);                  
+            notifyItemRemoved(index);
         }
-    }                                          
-    
-    public List<DownloadItem> getItems() { return downloadList; }
+    }
+
+    public List<DownloadItem> getItems() { 
+        return downloadList; 
+    }
 
     @NonNull
-    @Override                                      
+    @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_download, parent, false);
         return new ViewHolder(view);
-    }                                          
-    
-    @Override                                      
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull List<Object> payloads) {                                         
-        if (!payloads.isEmpty()) { bindData(holder, downloadList.get(position)); } 
-        else { super.onBindViewHolder(holder, position, payloads); }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {                          
-        DownloadItem item = downloadList.get(position);                                               
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull List<Object> payloads) {
+        if (!payloads.isEmpty()) { 
+            bindData(holder, downloadList.get(position)); 
+        } else { 
+            super.onBindViewHolder(holder, position, payloads); 
+        }
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        DownloadItem item = downloadList.get(position);
         bindData(holder, item);
+        
         holder.btnStop.setOnClickListener(v -> handleStopProcess(holder));
         holder.itemView.setOnLongClickListener(v -> {
             handleStopProcess(holder);
             removeDownload(item);
-            if (v.getContext() instanceof MainActivity) { ((MainActivity) v.getContext()).updateCounter(); }
-            return true;                               
-        });                                        
-    }                                          
-    
+            if (v.getContext() instanceof MainActivity) { 
+                ((MainActivity) v.getContext()).updateCounter(); 
+            }
+            return true;
+        });
+    }
+
     private void bindData(ViewHolder holder, DownloadItem item) {
         holder.title.setText(item.fileName);
         holder.duration.setText(item.durationStr);
         holder.size.setText(item.sizeStr);
-        holder.speed.setText(item.speedStr);   
-        
-        holder.progressBar.setIndeterminate(false); 
+        holder.speed.setText(item.speedStr);
+
+        holder.progressBar.setIndeterminate(false);
         holder.progressBar.setProgress(item.progress);
 
         if (item.isFinished || item.isStopped) {
-            holder.btnStop.setVisibility(View.GONE);                                                  
+            holder.btnStop.setVisibility(View.GONE);
         } else {
             holder.btnStop.setVisibility(View.VISIBLE);
             holder.btnStop.setEnabled(true);
             holder.btnStop.setAlpha(1.0f);
-            // KUNCI PERBAIKAN: Memastikan ikon vektor yang benar dipanggil ke ImageButton
-            holder.btnStop.setImageResource(R.drawable.ic_minus_solid);
+            // KUNCI PERBAIKAN: Tidak perlu memanggil setImageResource karena btnStop sekarang adalah TextView 
+            // dengan teks "—" dan background bg_circle_red dari layout XML.
         }
     }
 
-    private void handleStopProcess(ViewHolder holder) {                                               
+    private void handleStopProcess(ViewHolder holder) {
         int currentPos = holder.getAdapterPosition();
-        if (currentPos != RecyclerView.NO_POSITION) {                                                     
-            DownloadItem clickedItem = downloadList.get(currentPos);                                      
+        if (currentPos != RecyclerView.NO_POSITION) {
+            DownloadItem clickedItem = downloadList.get(currentPos);
             holder.speed.setText("Canceling...");
-            holder.btnStop.setEnabled(false);              
-            holder.btnStop.setAlpha(0.3f);                                                              
-            clickedItem.isStopped = true;      
+            holder.btnStop.setEnabled(false);
+            holder.btnStop.setAlpha(0.3f);
+            clickedItem.isStopped = true;
+            
             new Thread(() -> {
                 try {
-                    if (clickedItem.ffmpegSessionId != null) { FFmpegKit.cancel(clickedItem.ffmpegSessionId); } 
-                    else {                                           
-                        YoutubeDL.getInstance().destroyProcessById(clickedItem.processId);                            
-                        RecorderUtils.killZombieFFmpeg(clickedItem.fileName);                                     
+                    if (clickedItem.ffmpegSessionId != null) { 
+                        FFmpegKit.cancel(clickedItem.ffmpegSessionId); 
+                    } else {
+                        YoutubeDL.getInstance().destroyProcessById(clickedItem.processId);
+                        RecorderUtils.killZombieFFmpeg(clickedItem.fileName);
                     }
-                } catch (Exception e) { e.printStackTrace(); }                                          
+                } catch (Exception e) { 
+                    e.printStackTrace(); 
+                }
             }).start();
-        }                                          
-    }                                                                                             
-    
-    @Override public int getItemCount() { return downloadList.size(); }                                                                                             
+        }
+    }
+
+    @Override 
+    public int getItemCount() { 
+        return downloadList.size(); 
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title, duration, size, speed;
-        ImageButton btnStop; 
-        ProgressBar progressBar; 
+        // KUNCI PERBAIKAN: Mengubah ImageButton menjadi TextView sesuai layout item_download.xml
+        TextView btnStop; 
+        ProgressBar progressBar;
+        
         public ViewHolder(View itemView) {
-            super(itemView);                               
+            super(itemView);
             title = itemView.findViewById(R.id.item_title);
             duration = itemView.findViewById(R.id.item_duration);
-            size = itemView.findViewById(R.id.item_size);                                                 
+            size = itemView.findViewById(R.id.item_size);
             speed = itemView.findViewById(R.id.item_speed);
-            btnStop = itemView.findViewById(R.id.btn_stop);                                           
+            btnStop = itemView.findViewById(R.id.btn_stop); // Sekarang di-cast ke TextView secara otomatis
             progressBar = itemView.findViewById(R.id.item_progress);
-        }                                          
+        }
     }
 }
