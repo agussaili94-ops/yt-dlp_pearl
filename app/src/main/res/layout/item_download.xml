@@ -48,7 +48,6 @@
                 android:maxLines="2" 
                 android:ellipsize="end"/>
 
-            <!-- Tombol Stop: Diameter 20dp -->
             <RelativeLayout 
                 android:id="@+id/btn_stop" 
                 android:layout_width="20dp" 
@@ -57,7 +56,6 @@
                 android:clickable="true"
                 android:focusable="true">
                 
-                <!-- Garis minus: 11dp x 2.5dp -->
                 <View
                     android:layout_width="11dp"
                     android:layout_height="2.5dp"
@@ -73,7 +71,6 @@
             android:layout_marginBottom="10dp" 
             android:gravity="center_vertical" 
             android:orientation="horizontal">
-            <!-- Progress bar: Tinggi 4dp -->
             <ProgressBar 
                 android:id="@+id/item_progress" 
                 style="?android:attr/progressBarStyleHorizontal" 
@@ -177,12 +174,13 @@
                         android:layout_width="12dp" 
                         android:layout_height="12dp" 
                         android:src="@drawable/ic_time_orange"/>
+                    <!-- DIPERBAIKI: Menambahkan android:text agar tidak hilang -->
                     <TextView 
                         android:id="@+id/item_status" 
                         android:layout_width="wrap_content" 
                         android:layout_height="wrap_content" 
                         android:layout_marginStart="6dp" 
-                        text="Active" 
+                        android:text="Active" 
                         android:textColor="@color/text_dark" 
                         android:textSize="11sp" 
                         android:singleLine="true" />

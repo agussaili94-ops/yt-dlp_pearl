@@ -69,6 +69,13 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
         holder.duration.setText(item.durationStr);
         holder.size.setText(item.sizeStr);
         holder.speed.setText(item.speedStr);
+        
+        // Memastikan status waktu (Active) ter-set dengan benar
+        if (item.isStopped) {
+            holder.status.setText("Canceled");
+        } else {
+            holder.status.setText("Active");
+        }
 
         holder.progressBar.setIndeterminate(false);
         holder.progressBar.setProgress(item.progress);
@@ -85,9 +92,9 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
         int currentPos = holder.getAdapterPosition();
         if (currentPos != RecyclerView.NO_POSITION) {
             DownloadItem clickedItem = downloadList.get(currentPos);
-            holder.speed.setText("Canceling...");
+            holder.speed.setText("Stopping...");
+            holder.status.setText("Canceled"); // Update teks status
             
-            // PERBAIKAN: Sembunyikan tombol secara langsung alih-alih mengubah alpha untuk menghindari crash UI Thread
             holder.btnStop.setVisibility(View.GONE);
             clickedItem.isStopped = true;
             
@@ -112,8 +119,8 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title, duration, size, speed;
-        View btnStop; // Memastikan referensi sebagai View biasa (berlaku untuk RelativeLayout XML)
+        TextView title, duration, size, speed, status; // Tambahkan status ke deklarasi
+        View btnStop; 
         ProgressBar progressBar;
         
         public ViewHolder(View itemView) {
@@ -122,6 +129,7 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
             duration = itemView.findViewById(R.id.item_duration);
             size = itemView.findViewById(R.id.item_size);
             speed = itemView.findViewById(R.id.item_speed);
+            status = itemView.findViewById(R.id.item_status); // Inisialisasi TextView status
             btnStop = itemView.findViewById(R.id.btn_stop);
             progressBar = itemView.findViewById(R.id.item_progress);
         }
